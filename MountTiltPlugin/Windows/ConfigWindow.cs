@@ -25,14 +25,20 @@ public class ConfigWindow : Window, IDisposable
         using var wrapWidth = ImRaii.TextWrapPos(ImGui.CalcItemWidth() + ImGui.CalcTextSize("Angle").X + ImGuiHelpers.GlobalScale * (ImGui.GetStyle().ItemInnerSpacing.X + ImGui.GetStyle().WindowPadding.X * 2));
         ImGui.TextWrapped("Adjust the sliders below to set your tilt multiplier, you can Ctrl+Click the sliders to manually enter a number, but the game caps the angle at about 80° so there's no point in entering extreme values.");
         bool edited = false;
-        ImGui.Separator();
-        ImGui.Text("Ground tilt multipliers");
-        edited |= ImGui.SliderFloat("Angle", ref Plugin.Configuration.GroundTiltAngleMultiplier, vMin: 0f, vMax: 5f);
-        edited |= ImGui.SliderFloat("Speed", ref Plugin.Configuration.GroundTiltSpeedMultiplier, vMin: 0f, vMax: 5f);
-        ImGui.Separator();
-        ImGui.Text("Flight tilt multipliers");
-        edited |= ImGui.SliderFloat("Angle", ref Plugin.Configuration.FlightTiltAngleMultiplier, vMin: 0f, vMax: 5f);
-        edited |= ImGui.SliderFloat("Speed", ref Plugin.Configuration.FlightTiltSpeedMultiplier, vMin: 0f, vMax: 5f);
+        using (ImRaii.PushId("Ground"))
+        {
+            ImGui.Separator();
+            ImGui.Text("Ground tilt multipliers");
+            edited |= ImGui.SliderFloat("Angle", ref Plugin.Configuration.GroundTiltAngleMultiplier, vMin: 0f, vMax: 5f);
+            edited |= ImGui.SliderFloat("Speed", ref Plugin.Configuration.GroundTiltSpeedMultiplier, vMin: 0f, vMax: 5f);
+        }
+        using (ImRaii.PushId("Flight"))
+        {
+            ImGui.Separator();
+            ImGui.Text("Flight tilt multipliers");
+            edited |= ImGui.SliderFloat("Angle", ref Plugin.Configuration.FlightTiltAngleMultiplier, vMin: 0f, vMax: 5f);
+            edited |= ImGui.SliderFloat("Speed", ref Plugin.Configuration.FlightTiltSpeedMultiplier, vMin: 0f, vMax: 5f);
+        }
         if (edited)
         {
             Plugin.TiltService.ForceUpdate();
