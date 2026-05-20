@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Dalamud.NET.Sdk/15.0.0">
+  <PropertyGroup>
+    <Version>0.0.0.1</Version>
+  </PropertyGroup>
+  <PropertyGroup>
+    <InternalName>MountTiltPlugin</InternalName>
+    <Author>Speedas</Author>
+    <Name>Mount Tilt</Name>
+    <RepoUrl>https://github.com/RokasKil/MountTiltPlugin</RepoUrl>
+    <Punchline>A simple plugin that allows you to adjust your mount tilt.</Punchline>
+    <Description>A simple plugin that allows you to apply a multiplier to your mount tilt angle and speed when in motion.</Description>
+    <Tags>Mount;Tilt;Other</Tags>
+  </PropertyGroup>
+</Project>
