@@ -1,7 +1,7 @@
 ﻿using Dalamud.Configuration;
 using System;
 
-namespace MountTiltPlugin;
+namespace MountTilt;
 
 [Serializable]
 public class Configuration : IPluginConfiguration

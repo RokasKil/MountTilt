@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Dalamud.Hooking;
-using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Client.Game.Character;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
 
-namespace MountTiltPlugin.Services;
+namespace MountTilt.Services;
 
 public class TiltService : IAsyncDisposable
 {
-    private Hook<EffectContainer.Delegates.LoadTiltData> loadTiltDataHook = null!;
+    private Hook<EffectContainer.Delegates.LoadMountTiltData> loadTiltDataHook = null!;
 
     public TiltService()
     {
@@ -19,7 +17,7 @@ public class TiltService : IAsyncDisposable
     
     public unsafe void Initialize()
     {
-        loadTiltDataHook = Plugin.GameInteropProvider.HookFromAddress<EffectContainer.Delegates.LoadTiltData>(EffectContainer.Addresses.LoadTiltData.Value, LoadTiltDataDetour);
+        loadTiltDataHook = Plugin.GameInteropProvider.HookFromAddress<EffectContainer.Delegates.LoadMountTiltData>(EffectContainer.Addresses.LoadMountTiltData.Value, LoadTiltDataDetour);
         loadTiltDataHook.Enable();
         ForceUpdate();
     }
@@ -30,10 +28,10 @@ public class TiltService : IAsyncDisposable
         loadTiltDataHook.Original(thisPtr);
         // Apply only to mounts
         if (thisPtr->OwnerObject->ObjectKind != ObjectKind.Mount) return;
-        thisPtr->FlightTiltAngle *= Plugin.Configuration.FlightTiltAngleMultiplier;
-        thisPtr->FlightTiltSpeed *= Plugin.Configuration.FlightTiltSpeedMultiplier;
-        thisPtr->GroundTiltAngle *= Plugin.Configuration.GroundTiltAngleMultiplier;
-        thisPtr->GroundTiltSpeed *= Plugin.Configuration.GroundTiltSpeedMultiplier;
+        thisPtr->MountFlightSwimTiltAngle *= Plugin.Configuration.FlightTiltAngleMultiplier;
+        thisPtr->MountFlightSwimTiltSpeed *= Plugin.Configuration.FlightTiltSpeedMultiplier;
+        thisPtr->MountGroundTiltAngle *= Plugin.Configuration.GroundTiltAngleMultiplier;
+        thisPtr->MountGroundTiltSpeed *= Plugin.Configuration.GroundTiltSpeedMultiplier;
     }
     
     public unsafe void ForceUpdate()
@@ -44,7 +42,7 @@ public class TiltService : IAsyncDisposable
             var csBattleChara = (BattleChara*)battleChara.Address;
             if (csBattleChara->Mount.MountObject != null)
             {
-                csBattleChara->Mount.MountObject->Effects.LoadTiltData();
+                csBattleChara->Mount.MountObject->Effects.LoadMountTiltData();
             }
         }
     }

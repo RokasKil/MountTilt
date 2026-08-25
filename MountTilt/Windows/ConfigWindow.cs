@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Numerics;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Utility.Raii;
 using Dalamud.Interface.Windowing;
 
-namespace MountTiltPlugin.Windows;
+namespace MountTilt.Windows;
 
 public class ConfigWindow : Window, IDisposable
 {

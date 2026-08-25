@@ -1,17 +1,14 @@
-﻿using System;
-using Dalamud.Game.Command;
+﻿using Dalamud.Game.Command;
 using Dalamud.IoC;
 using Dalamud.Plugin;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin.Services;
-using Lumina.Excel.Sheets;
-using MountTiltPlugin.Services;
-using MountTiltPlugin.Windows;
+using MountTilt.Services;
+using MountTilt.Windows;
 
-namespace MountTiltPlugin;
+namespace MountTilt;
 
 public sealed class Plugin : IAsyncDalamudPlugin
 {
@@ -27,7 +24,7 @@ public sealed class Plugin : IAsyncDalamudPlugin
 
     private const string CommandName = "/mounttilt";
     
-    private readonly WindowSystem windowSystem = new("MountTiltPlugin");
+    private readonly WindowSystem windowSystem = new("MountTilt");
     
     private ConfigWindow ConfigWindow { get; init; }
 
